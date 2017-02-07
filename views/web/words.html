@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head><title>Words</title>
+	<link rel="stylesheet" href="../../css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	</head>
+	<body>
+	<h1>Words</h1>
+
+	<div id = "themediv" class="container">
+	
+				<a id="themeurl"><h4 id = "themeheading" style="float:left;width:40"></h4></a>
+				<h4 style="float:left;width:50"> >> </h4>
+				<h4 id ="subthemeName" style="float:left"></h4>
+	</div>			
+	
+
+	<p></p>
+	<div id= "wordboard"></div>
+
+	<script>
+		function getParameterByName(name) {
+ 		return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
+		}
+
+		$(document).ready(function(){
+			var themeid = getParameterByName('themeid');
+			var subthemeid = getParameterByName('subthemeid');
+			$.getJSON('http://localhost:8080/word/'+themeid+'/'+subthemeid,function(data){
+				//console.log(data);
+				var wordlist='';
+				var count = 0;
+				var themeName='';
+				var subthemeName='';
+				$.each(data,function(index,value){
+						var wordid = value.word_id;
+						var word = value.word;			
+						if(count%4==0){
+							wordlist +="<div class='row'>";
+						    wordlist += "<div class = 'col-xs-2 col-md-2 col-md-offset-1 card'></div>"	
+						}
+						themeName = value.theme;
+						subthemeName = value.subtheme;
+						wordlist += "<div class='col-xs-2 col-md-2' id ="+wordid+" ><img class='img-responsive'  src='../../img/words/Extremes.jpeg'  width='150' height='250'><div class='card-block'><a href='#'><h4 class='card-title'>"+word+"</h4></a></div></div>"
+						count=count+1;	
+
+				});
+					$("#wordboard").append(wordlist);
+					$("#subthemeName").append(subthemeName);
+					$("#themeheading").append(themeName);
+
+					var themeurl = document.getElementById('themeurl');
+					themeurl.href = 'subthemes.html?themeid='+themeid;
+			});
+			
+		});
+
+		
+
+			
+	</script>
+	</body>
+</html>

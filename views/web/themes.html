@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head><title>All themes</title>
+	<link rel="stylesheet" href="../../css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	</head>
+	<body>
+	<h1>Themes</h1>
+	
+	
+	<p></p>
+	
+	<div id= "themeboard"></div>
+	<!--<div class="row">
+    <div class="col-xs-2 col-md-2"><img src="Extremes.jpeg" alt="Card image cap" width="150" height="250"/></div>
+    <div class="col-xs-2 col-md-2"><img src="Extremes.jpeg" alt="Card image cap" width="150" height="250"/></div>
+    <div class="col-xs-2 col-md-2"><img src="Extremes.jpeg" alt="Card image cap" width="150" height="250"/></div>
+    <div class="col-xs-2 col-md-2"><img src="Extremes.jpeg" alt="Card image cap" width="150" height="250"/></div>
+    <div class="col-xs-2 col-md-2"><img src="Extremes.jpeg" alt="Card image cap" width="150" height="250"/></div>
+    <div class="col-xs-2 col-md-2"><img src="Extremes.jpeg" alt="Card image cap" width="150" height="250"/></div>
+	</div>	
+	-->
+	<script>
+		$(document).ready(function(){
+		    $.getJSON('http://localhost:8080/themes',function(data){
+		    		var themelist = '';
+		    		var count=0;
+		    		/*Iterate over data array*/
+		    		$.each(data,function(index,value){
+		    			var themeid = value.theme_id;
+						var themeName = value.description;
+						//console.log(count);
+						if(count%4==0)
+						{
+							themelist +="<div class='row'>";
+							themelist += "<div class = 'col-xs-2 col-md-2 col-md-offset-1 card'></div>";	
+						}	
+						themelist += "<div class='col-xs-2 col-md-2' id ="+themeid+" ><img class='img-responsive'  src='../../img/themes/Extremes.jpeg'  width='150' height='250'><div class='card-block'><a href='subthemes.html?themeid="+themeid+"'><h4 class='card-title'>"+themeName+"</h4></a></div></div>";
+						count=count+1;
+						console.log(count);
+		    		});
+		    		$("#themeboard").append(themelist);
+		    });
+		});
+
+		/*$("#b1").click(function(){
+			//alert("Clicked success");	
+			$.ajax({
+				datatype: "json",
+				url: 'http://localhost:8080/api/themes',
+				type: 'GET',
+				success: function(data){
+							var themelist = '';
+							console.log(data);
+							console.log("success");
+							$.each(data, function(index,value){
+								var themeid = value.theme_id;
+								var themeName = value.description;
+								console.log(themeid+"--"+themeName);
+								if((themeid-1)%4 == 0){
+									var start = themeid-1;
+									themelist +="<div class='row'>";
+									themelist += "<div class = 'col-xs-2 col-md-2 col-md-offset-1 card'></div>"	
+								}
+								themelist += "<div class='col-xs-2 col-md-2' id ="+themeid+" ><img class='img-responsive'  src='Extremes.jpeg'  width='150' height='250'><div class='card-block'><a href='subthemes.html?themeid="+themeid+"'><h4 class='card-title'>"+themeName+"</h4></a></div></div>"
+								if(themeid-start-1 == 4){
+									themelist +="</div>";	
+								}
+
+							});
+							$("#themeboard").append(themelist);
+						 }
+
+			});
+		});
+		*/
+
+</script>
+	</body>
+</html>

@@ -1,0 +1,11 @@
+.logo {
+					  padding: 15px 0;
+					  font-size: 25px;
+					  color: #aaaaaa;
+					  font-weight: bold;
+				  }
+
+.errorMsg {
+			color: red;
+			font-weight: bold;
+	 } 				  
